@@ -37,16 +37,34 @@ export default class Login extends Component {
 
   // Login User with email and password
   LoginInUser = (email,password) =>{
-    try {
-      console.log(`email is ${this.state.userEmail} and password is ${this.state.userPassword}`)
-      console.log(`email is=====> ${email} and password is====> ${password}`)
-      firebase.auth().signInWithEmailAndPassword(this.state.userEmail,this.state.userPassword).then((user)=>{
-      console.log(user)
-      this.props.navigation.navigate('Tab')
-      })
-    } catch (error) {
-      console.log(error)
-    }   
+    if(this.state.userEmail === null){
+      alert('Please provide email')
+      return;
+    }else if(this.state.userEmail === ""){
+      alert('Please provide Email')
+      return;
+    }else if(!this.validate(this.state.userEmail)){
+      alert('Please Provide valid email')
+      return;
+    }else if(this.state.userPassword === null){
+      alert('Please provide password')
+      return;
+    }else if(this.state.userPassword === ""){
+      alert('Please provide Password')
+      return;
+    }else{
+      try {
+        console.log(`email is ${this.state.userEmail} and password is ${this.state.userPassword}`)
+        console.log(`email is=====> ${email} and password is====> ${password}`)
+        firebase.auth().signInWithEmailAndPassword(this.state.userEmail,this.state.userPassword).then((user)=>{
+        console.log(user)
+        this.props.navigation.navigate('Tab')
+        })
+      } catch (error) {
+        console.log(error)
+        alert(error.toString())
+      } 
+    }
   }
 
   // SignUpUser
@@ -75,7 +93,22 @@ onClickPasswordHandler =(val)=>{
   })
   console.log(`Email is ${val}  and ${this.state.userPassword}`)
 }
-
+// Email validation 
+validate = (text) => {
+  // console.log(text);
+  // let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+  // if(reg.test(text) === false)
+  // {
+  // console.log("Email is Not Correct");
+  // this.setState({email:text})
+  // return false;
+  //   }
+  // else {
+  //   this.setState({email:text})
+  //   console.log("Email is Correct");
+  // }
+  return true;
+  }
 
   render() {
     // if (this.state.user) {

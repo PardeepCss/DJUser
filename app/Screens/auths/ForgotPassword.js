@@ -23,8 +23,37 @@ forgotPasswordInputHandler = (value) => {
 
 // onClick on forgot password button
 onClickForgotPassword = () =>{
-this.props.navigation.goBack();
+  if(this.state.email === null){
+    alert('Please provide email')
+    return;
+  }else if(this.state.email === ""){
+    alert('Please provide Email')
+    return;
+  }else if(!this.validate(this.state.email)){
+    alert('Please Provide valid email')
+    return;
+  }else{
+    this.props.navigation.goBack();
+  }
+
 }
+
+// Email validation 
+validate = (text) => {
+  // console.log(text);
+  // let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+  // if(reg.test(text) === false)
+  // {
+  // console.log("Email is Not Correct");
+  // this.setState({email:text})
+  // return false;
+  //   }
+  // else {
+  //   this.setState({email:text})
+  //   console.log("Email is Correct");
+  // }
+  return true;
+  }
 
   render() {
     return (
