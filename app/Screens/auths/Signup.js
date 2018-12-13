@@ -84,9 +84,11 @@ onClickSignUpFirebase = () => {
     return;
   }else{
     try {
-      firebase.auth().createUserWithEmailAndPassword(this.state.signUpEmail, this.state.signUpPassword).then((user)=>{
+      firebase.auth()
+      .createUserWithEmailAndPassword(this.state.signUpEmail, this.state.signUpPassword)
+      .then((user)=>{
         console.log(user);
-        this.props.navigation.navigatate('Tab')
+        this.props.navigation.navigate('Tab')
       }) ;   
     } catch (error) {
       alert(error.toString())
@@ -114,7 +116,7 @@ onClickSignUpFirebase = () => {
         <Button title='SignUp'
         onPress={this.onClickSignUpFirebase}/>
         <Button title='Login'
-        onPress={() => this.props.navigation.navigatate('Login')}/>
+        onPress={() => this.props.navigation.goBack()}/>
       </View>
     );
   }
