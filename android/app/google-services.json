@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "240379216651",
+    "firebase_url": "https://djuser-c5692.firebaseio.com",
+    "project_id": "djuser-c5692",
+    "storage_bucket": "djuser-c5692.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240379216651:android:3dfe65c9f6e16af2",
+        "android_client_info": {
+          "package_name": "com.djuser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240379216651-gj9n27k1kuuhm9se7at3rno6t278ib1l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDB4BtNk2X8pMj8rFjJviImsc9hp2Vtu5g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
