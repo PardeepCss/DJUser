@@ -1,15 +1,16 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {Text, View,TextInput,Button} from 'react-native';
 import firebase from 'react-native-firebase';
-
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  Image,
+  Alert,
+  ImageBackground
+} from 'react-native';
 
 
 export default class Signup extends Component {
@@ -17,8 +18,16 @@ export default class Signup extends Component {
    state={
      signUpEmail:'',
      signUpPassword:'',
-     signUpFirstTime:''
+     signUpFirstTime:'',
+     signUpName:''
    }
+// get or ser name value
+onSignUpNameInputHandler = (val) =>{
+this.setState({
+  signUpName:val.trim()
+})
+}
+
 // get or set email value
 onSignUpEmailInputHandler = (val) =>{
   this.setState({
@@ -58,7 +67,13 @@ validate = (text) => {
 // Sign Up with Firebase
 onClickSignUpFirebase = () => {
 
-  if(this.state.signUpEmail === null){
+  if(this.state.signUpName === null){
+    alert('Please provide User Name')
+    return;
+  }else if(this.state.signUpName === ""){
+    alert('Please provide user name')
+    return;
+  }if(this.state.signUpEmail === null){
     alert('Please provide email')
     return;
   }else if(this.state.signUpEmail === ""){
@@ -95,29 +110,56 @@ onClickSignUpFirebase = () => {
     }
   } 
 }
-  //  returns Promise containing UserCredential;
   
   render() {
     return (
-      <View >
-        <Text >Sign Up</Text>
-        <TextInput 
-        placeholder='Enter your email'
-        value ={this.state.signUpEmail}
-        onChangeText={this.onSignUpEmailInputHandler}/>
-        <TextInput 
-        placeholder='Enter your password'
-        value ={this.state.signUpPassword}
-        onChangeText={this.onSignUpPasswordInputHandler}/>
-        <TextInput 
-        placeholder='Enter your First Time'
-        value ={this.state.signUpFirstTime}
-        onChangeText={this.onSignUpPasswordFirstTimeInputHandler}/>
-        <Button title='SignUp'
-        onPress={this.onClickSignUpFirebase}/>
-        <Button title='Login'
-        onPress={() => this.props.navigation.goBack()}/>
+        <ImageBackground source={require('../../Screens/image/dj_bg.jpg')} style = {{ width: '100%', height: '100%' }} >
+      <View style={styles.container}>
+      <Image source = {require('../../Screens/image/logo.png')} style = {{ width: 150, height: 150 }} />
+        <View style={styles.inputContainer}>
+          <TextInput style={styles.inputs}
+              placeholder="Full name"
+              underlineColorAndroid='transparent'
+              value ={this.state.signUpName}
+              onChangeText={this.onSignUpNameInputHandler}
+              />
+          <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/color/40/000000/circled-user-male-skin-type-3.png'}}/>
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput style={styles.inputs}
+              placeholder="Email"
+              keyboardType="email-address"
+              underlineColorAndroid='transparent'
+              value ={this.state.signUpEmail}
+              onChangeText={this.onSignUpEmailInputHandler}
+              />
+          <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/flat_round/40/000000/secured-letter.png'}}/>
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput style={styles.inputs}
+              placeholder="Password"
+              secureTextEntry={true}
+              underlineColorAndroid='transparent'
+              value ={this.state.signUpPassword}
+              onChangeText={this.onSignUpPasswordInputHandler}
+          />
+          <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/color/40/000000/password.png'}}/>
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput style={styles.inputs}
+              placeholder="Confirm Password"
+              secureTextEntry={true}
+              underlineColorAndroid='transparent'
+              value ={this.state.signUpFirstTime}
+              onChangeText={this.onSignUpPasswordFirstTimeInputHandler}
+          />
+          <Image style={styles.inputIcon} source={{uri: 'https://img.icons8.com/color/40/000000/password.png'}}/>
+        </View>
+       <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onClickSignUpFirebase}>
+          <Text style={styles.loginText}>SignUp</Text>
+        </TouchableOpacity>
       </View>
+      </ImageBackground>
     );
   }
 }
@@ -125,5 +167,103 @@ onClickSignUpFirebase = () => {
 
 Signup.navigationOptions = {
     title: 'Sign Up',
+    color:'white',
+    backgroundColor:'transparent',
     gesturesEnabled: false,
   };
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      //justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 40,
+      //backgroundColor: 'black',
+    },
+    inputContainer: {
+      borderBottomColor: '#F5FCFF',
+      backgroundColor: '#FFFFFF',
+      borderRadius:30,
+      borderBottomWidth: 1,
+      width:300,
+      height:45,
+      marginBottom:20,
+      flexDirection: 'row',
+      alignItems:'center',
+  
+      shadowColor: "#808080",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+  
+      elevation: 5,
+    },
+    inputs:{
+      height:45,
+      marginLeft:16,
+      borderBottomColor: '#FFFFFF',
+      flex:1,
+    },
+    inputIcon:{
+      width:30,
+      height:30,
+      marginRight:15,
+      justifyContent: 'center'
+    },
+    buttonContainer: {
+      height:45,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom:20,
+      width:300,
+      borderRadius:30,
+      backgroundColor:'transparent'
+    },
+    btnByRegister: {
+      height:15,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginVertical:20,
+      width:300,
+      backgroundColor:'transparent'
+    },
+    loginButton: {
+      backgroundColor: "#00b5ec",
+  
+      shadowColor: "#808080",
+      shadowOffset: {
+        width: 0,
+        height: 9,
+      },
+      shadowOpacity: 0.50,
+      shadowRadius: 12.35,
+  
+      elevation: 19,
+    },
+    loginText: {
+      color: 'white',
+    },
+    
+    btnText:{
+      color:"white",
+      fontWeight:'bold',
+      textShadowColor: 'rgba(0, 0, 0, 0.75)',
+      textShadowOffset: {width: -1, height: 1},
+      textShadowRadius: 10
+    },
+    textByRegister:{
+      color:"white",
+      fontWeight:'bold',
+      textAlign:'center',
+  
+      textShadowColor: 'rgba(0, 0, 0, 0.75)',
+      textShadowOffset: {width: -1, height: 1},
+      textShadowRadius: 10
+    }
+  });  
+
